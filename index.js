@@ -10,6 +10,7 @@ import { __dirname } from './config/config.js';
 // Crear la aplicación de express
 const app = express();
 
+app.use(cors());
 // Middlewares
 // Conectar a la base de datos
 connectDB();
@@ -17,7 +18,6 @@ connectDB();
 // Para subir archivos estaticos desde el servidor (vercel)
 app.use(express.static(path.join(__dirname, "public"))) 
 // Comunicación entre servidores
-app.use(cors());
 // Para que express entienda json
 app.use(express.json());
 // true para parsear arrays y objetos complejos

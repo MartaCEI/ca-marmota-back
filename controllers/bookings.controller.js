@@ -59,6 +59,7 @@ export const cancelBooking = async (req, res) => {
 
     try {
         const booking = await Booking.findOne({ _id: bookingId });
+        console.log('Booking:', booking);
         if (!booking) return res.status(404).json({ message: 'Reserva no encontrada' });
 
         // Cambiar el estado de la reserva a 'cancelled'
