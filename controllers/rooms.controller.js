@@ -1,6 +1,6 @@
 import { Room } from '../data/mongodb.js';
 
-export const getAllRooms = async (req, res) => {
+export const getAllRooms = async (req, res, next) => {
     try {
         const rooms = await Room.find({});
         res.json(rooms);
@@ -9,7 +9,7 @@ export const getAllRooms = async (req, res) => {
     }
 };
 
-export const roomsAvailability = async (req, res) => {
+export const roomsAvailability = async (req, res, next) => {
     const { checkIn, checkOut } = req.body;
 
     try {
@@ -40,7 +40,7 @@ export const roomsAvailability = async (req, res) => {
     }
 };
 
-export const getRoomById = async (req, res) => {
+export const getRoomById = async (req, res, next) => {
     try {
         const roomId = req.params.id;
         const room = await Room.findById(roomId);
@@ -55,33 +55,30 @@ export const getRoomById = async (req, res) => {
     }
 };
 
-// export const deleteProduct= async (req, res, next) => {
-//     try {
-//         const productId = req.params.id;
-//         const deletedproduct= await Product.findByIdAndDelete(productId);
-//         if(!deleteProduct) return res.status(404).json({message: "Correo no encontrado"});
-//         res.json({message: "Correo eliminado correctamente"}); // Si no tiene status envia el mensaje. si le ponemos status(204) no envia mensaje
-//     } catch (error) {
-//         res.status(500).json({message: error.message})
-//     }
-// }
 
-// Marcar correo como leido
-// export const updateProduct = async (req, res, next) => {
-//     try {
-//         const productId = req.params.id;
+export const updateRoom = async (req, res, next) => {
+    try {
+        // Obtener roomId desde los parámetros de la URL
+        const roomId = req.params.id;
 
-//         // Utilizamos el new: true para que nos devuelva el documento actualizado
-//         // Utilizamos {isLeido:true} para marcar el correo como leido
-//         const updatedproduct= await Product.findByIdAndUpdate(
-//             productId,
-//             {isLeido: true},
-//             {new: true}    
-//         )
-//         if(!updateProduct) return es.status(404).json({message: "Correo no encontrado"});
-//         res.status(200).json(updateProduct);
+        // Verificar si la habitación existe
+        const room = await Room.findById(roomId);
 
-//     } catch (error) {
-//         res.status(500).json({message: error.message})
-//     }
-// }
+        if (!room) {
+            return res.status(404).json({ message: "Habitación no encontrada" });
+        }
+
+        // Actualizar solo los campos que se envían en el cuerpo de la solicitud
+        const updatedRoom = await Room.findByIdAndUpdate(
+            roomId,
+            req.body, // Aquí usamos req.body para actualizar los campos modificados
+            { new: true } // Esto asegura que la respuesta sea la habitación actualizada
+        );
+
+        // Responder con la habitación actualizada
+        res.status(200).json(updatedRoom);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Error al actualizar la habitación", error: error.message });
+    }
+};

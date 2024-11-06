@@ -11,7 +11,54 @@ const connectDB = async () => {
     }
 }
 
+// Esquema para las secciones
+const sectionSchema = new mongoose.Schema({
+    image: {
+        type: String,
+        required: true
+    },
+    sectionTitle: {
+        type: String,
+        required: true
+    },
+    sectionSubtitle: {
+        type: String,
+        required: true
+    },
+});
+
+// Esquema para la página de inicio
+const homeSchema = new mongoose.Schema({
+    headerImage: { 
+        type: String, 
+        required: true 
+    },
+    logo: { 
+        type: String, 
+        required: true 
+    },
+    title: { 
+        type: String, 
+        required: true 
+    },
+    subtitle: { 
+        type: String, 
+        required: true 
+    },
+    sections: [sectionSchema] 
+});
+
+
 const landingSchema = new mongoose.Schema({
+    headerImage: {
+        type: String,
+    },
+    title: {
+        type: String
+    },
+    description: {
+        type: String
+    },
     title: {
         type: String,
         required: true
@@ -25,11 +72,11 @@ const landingSchema = new mongoose.Schema({
         required: true
     }
 },
-{
-    timestamps: true,
-    strict: false,
-    versionKey: false
-})
+    {
+        timestamps: true,
+        strict: false,
+        versionKey: false
+    })
 
 const userSchema = new mongoose.Schema({
     name: {
@@ -54,11 +101,11 @@ const userSchema = new mongoose.Schema({
         default: false
     }
 },
-{
-    timestamps: true,
-    strict: false,
-    versionKey: false
-})
+    {
+        timestamps: true,
+        strict: false,
+        versionKey: false
+    })
 
 const roomSchema = new mongoose.Schema({
     roomName: {
@@ -91,11 +138,11 @@ const roomSchema = new mongoose.Schema({
         required: true
     }
 },
-{
-    timestamps: true,
-    strict: false,
-    versionKey: false
-})
+    {
+        timestamps: true,
+        strict: false,
+        versionKey: false
+    })
 
 const bookingSchema = new mongoose.Schema({
     userId: {
@@ -133,15 +180,16 @@ const bookingSchema = new mongoose.Schema({
         default: 'booked'
     }
 },
-{
-    timestamps: true,
-    strict: false,
-    versionKey: false
-})
+    {
+        timestamps: true,
+        strict: false,
+        versionKey: false
+    })
 
 const Landing = mongoose.model('Landing', landingSchema);
 const User = mongoose.model('User', userSchema);
 const Room = mongoose.model('Room', roomSchema);
 const Booking = mongoose.model('Booking', bookingSchema);
+const Home = mongoose.model('Home', homeSchema);
 
-export { connectDB, User, Room, Booking, Landing };
+export { connectDB, User, Room, Booking, Landing, Home };

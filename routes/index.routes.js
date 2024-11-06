@@ -3,15 +3,15 @@ import {Router} from "express"
 // import { getAdmin, createRegister, getUsers, getUserByUsername, createUser, updateUser, deleteUser } from '../controllers/usuarios.controller.js';
 
 import {authenticateToken} from '../middlewares/auth.js'
-import { getLandings } from "../controllers/landings.controller.js";
+import { getHome } from "../controllers/landings.controller.js";
 import { createRegister, getUsers, authLogin, getAdmin, updateUser, deleteUser } from "../controllers/usuarios.controller.js";
-import { getAllRooms, roomsAvailability, getRoomById } from "../controllers/rooms.controller.js";
+import { getAllRooms, roomsAvailability, getRoomById, updateRoom } from "../controllers/rooms.controller.js";
 import { createBooking, getAllBookings, getBookingByUserId, cancelBooking, updateBooking } from "../controllers/bookings.controller.js";
 const router = Router();
 
 // Rutas
 // Rutas de inicio
-router.get('/home', getLandings);
+router.get('/home', getHome);
 
 // Registro de usuarios
 router.post('/register', createRegister);
@@ -26,9 +26,8 @@ router.delete('/users/:id', authenticateToken, deleteUser);
 router.get('/rooms', getAllRooms);
 router.post('/rooms/availability', roomsAvailability);
 router.get('/rooms/:id', getRoomById);
-// falta con multer y authenticateToken
-// router.post('/rooms', createRoom);
-// router.put('/rooms/:id', updateRoom);
+// falta con multer
+router.put('/rooms/:id', updateRoom);
 // router.delete('/rooms/:id', deleteRoom);
 
 // ruta bookings con authenticateToken
