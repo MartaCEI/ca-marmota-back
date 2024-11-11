@@ -12,24 +12,25 @@ const connectDB = async () => {
 }
 
 // Esquema para las secciones
-const sectionSchema = new mongoose.Schema({
-    image: {
+const articleSchema = new mongoose.Schema({
+    articleImage: {
         type: String,
-        required: true
     },
-    sectionTitle: {
+    articleTitle: {
         type: String,
-        required: true
     },
-    sectionSubtitle: {
+    articleSubtitle: {
         type: String,
-        required: true
     },
 });
 
 // Esquema para la página de inicio
-const homeSchema = new mongoose.Schema({
-    headerImage: { 
+const pageSchema = new mongoose.Schema({
+    page: {
+        type: String,
+        required: true
+    },
+    image: { 
         type: String, 
         required: true 
     },
@@ -45,7 +46,7 @@ const homeSchema = new mongoose.Schema({
         type: String, 
         required: true 
     },
-    sections: [sectionSchema] 
+    articles: [articleSchema] 
 });
 
 
@@ -190,6 +191,6 @@ const Landing = mongoose.model('Landing', landingSchema);
 const User = mongoose.model('User', userSchema);
 const Room = mongoose.model('Room', roomSchema);
 const Booking = mongoose.model('Booking', bookingSchema);
-const Home = mongoose.model('Home', homeSchema);
+const Page = mongoose.model('Page', pageSchema);
 
-export { connectDB, User, Room, Booking, Landing, Home };
+export { connectDB, User, Room, Booking, Landing, Page };

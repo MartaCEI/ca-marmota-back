@@ -3,15 +3,15 @@ import {Router} from "express"
 // import { getAdmin, createRegister, getUsers, getUserByUsername, createUser, updateUser, deleteUser } from '../controllers/usuarios.controller.js';
 
 import {authenticateToken} from '../middlewares/auth.js'
-import { getHome } from "../controllers/landings.controller.js";
+import { getPageInfo } from "../controllers/landings.controller.js";
 import { createRegister, getUsers, authLogin, getAdmin, updateUser, deleteUser } from "../controllers/usuarios.controller.js";
 import { getAllRooms, roomsAvailability, getRoomById, updateRoom } from "../controllers/rooms.controller.js";
 import { createBooking, getAllBookings, getBookingByUserId, cancelBooking, updateBooking } from "../controllers/bookings.controller.js";
 const router = Router();
 
 // Rutas
-// Rutas de inicio
-router.get('/home', getHome);
+// Rutas de la informacion de las páginas del frontend
+router.get('/page', getPageInfo);
 
 // Registro de usuarios
 router.post('/register', createRegister);
