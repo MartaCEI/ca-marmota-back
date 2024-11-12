@@ -3,7 +3,7 @@ import {Router} from "express"
 // import { getAdmin, createRegister, getUsers, getUserByUsername, createUser, updateUser, deleteUser } from '../controllers/usuarios.controller.js';
 
 import {authenticateToken} from '../middlewares/auth.js'
-import { getPageInfo } from "../controllers/landings.controller.js";
+import { getPageInfo } from "../controllers/pages.controller.js";
 import { createRegister, getUsers, authLogin, getAdmin, updateUser, deleteUser } from "../controllers/usuarios.controller.js";
 import { getAllRooms, roomsAvailability, getRoomById, updateRoom } from "../controllers/rooms.controller.js";
 import { createBooking, getAllBookings, getBookingByUserId, cancelBooking, updateBooking } from "../controllers/bookings.controller.js";

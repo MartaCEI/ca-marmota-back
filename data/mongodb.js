@@ -49,36 +49,6 @@ const pageSchema = new mongoose.Schema({
     articles: [articleSchema] 
 });
 
-
-const landingSchema = new mongoose.Schema({
-    headerImage: {
-        type: String,
-    },
-    title: {
-        type: String
-    },
-    description: {
-        type: String
-    },
-    title: {
-        type: String,
-        required: true
-    },
-    description: {
-        type: String,
-        required: true
-    },
-    image: {
-        type: String,
-        required: true
-    }
-},
-    {
-        timestamps: true,
-        strict: false,
-        versionKey: false
-    })
-
 const userSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -113,31 +83,35 @@ const roomSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    maxCount: {
-        type: Number,
-        required: true
-    },
     description: {
         type: String,
+        required: true
+    },
+    maxCount: {
+        type: Number,
         required: true
     },
     rentPerDay: {
         type: Number,
         required: true
     },
-    imagesUrls: [],
-    currentBookings: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Booking'
-    }],
     type: {
+        type: String,
+        required: true
+    },
+    bathRoom: {
         type: String,
         required: true
     },
     amenities: {
         type: [String],
         required: true
-    }
+    },
+    imagesUrls: [],
+    currentBookings: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Booking'
+    }]
 },
     {
         timestamps: true,
@@ -187,10 +161,9 @@ const bookingSchema = new mongoose.Schema({
         versionKey: false
     })
 
-const Landing = mongoose.model('Landing', landingSchema);
 const User = mongoose.model('User', userSchema);
 const Room = mongoose.model('Room', roomSchema);
 const Booking = mongoose.model('Booking', bookingSchema);
 const Page = mongoose.model('Page', pageSchema);
 
-export { connectDB, User, Room, Booking, Landing, Page };
+export { connectDB, User, Room, Booking, Page };
