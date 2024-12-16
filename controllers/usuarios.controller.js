@@ -6,12 +6,21 @@ import { JWT_SECRET, __dirname } from '../config/config.js';
 
 export const getUsers = async (req, res, next) => {
     try {
-        const users = await User.find();
+        const users = await User.find({ isDeleted: false }); // Solo usuarios activos
         res.status(200).json({data: users, message: "Correcto users"})
     } catch (error) {
-        res.status(500).json({error: "Error en el servidor"})
+        res.status(500).json({ message: error.message });
     }
-}
+};
+
+// export const getUsers = async (req, res, next) => {
+//     try {
+//         const users = await User.find();
+//         res.status(200).json({data: users, message: "Correcto users"})
+//     } catch (error) {
+//         res.status(500).json({error: "Error en el servidor"})
+//     }
+// }
 
 export const authLogin = async (req, res, next) => {
 try {
@@ -71,17 +80,38 @@ export const getAdmin =  async (req, res, next) => {
     }
 }
 
-
 export const deleteUser = async (req, res, next) => {
     try {
         const userId = req.params.id;
-        const deletedUser = await User.findByIdAndDelete(userId);
-        if(!deletedUser) return res.status(404).json({message: "Usuario no encontrado"});
-        res.json({message: "Usuario eliminado correctamente"}); //Si no tiene status envia el mensaje. si le ponemos status(204) no envia mensaje
+
+        // Marcar el usuario como eliminado
+        const updatedUser = await User.findByIdAndUpdate(
+            userId,
+            { isDeleted: true },
+            { new: true } // Devuelve el documento actualizado
+        );
+
+        if (!updatedUser) {
+            return res.status(404).json({ message: "Usuario no encontrado" });
+        }
+
+        res.json({ message: "Usuario marcado como eliminado correctamente" });
     } catch (error) {
-        res.status(500).json({message: error.message})
+        res.status(500).json({ message: error.message });
     }
-}
+};
+
+
+// export const deleteUser = async (req, res, next) => {
+//     try {
+//         const userId = req.params.id;
+//         const deletedUser = await User.findByIdAndDelete(userId);
+//         if(!deletedUser) return res.status(404).json({message: "Usuario no encontrado"});
+//         res.json({message: "Usuario eliminado correctamente"}); //Si no tiene status envia el mensaje. si le ponemos status(204) no envia mensaje
+//     } catch (error) {
+//         res.status(500).json({message: error.message})
+//     }
+// }
 
 
 export const updateUser = async (req, res, next) => {

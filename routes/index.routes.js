@@ -32,7 +32,7 @@ router.put('/rooms/:id', updateRoom);
 
 // ruta bookings con authenticateToken
 router.post('/booking', createBooking);
-router.get('/bookings', getAllBookings);
+router.get('/bookings',  authenticateToken, getAllBookings);
 // falta authenticateToken
 router.get('/bookings/:userId', authenticateToken, getBookingByUserId);
 router.put('/bookings/:bookingId', cancelBooking);

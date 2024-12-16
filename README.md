@@ -379,7 +379,7 @@ Para probarlo con Thunder Client.
 POST  http://localhost:3000/api/v1/login
 ```json
 {
-    "username": "caca@gmail.com",
+    "username": "marta@gmail.com",
     "password": "1234"
 }
 y nos devuelve el usuario y el token

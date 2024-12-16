@@ -30,14 +30,36 @@ export const createBooking = async (req, res) => {
 export const getAllBookings = async (req, res) => {
     try {
         const bookings = await Booking.find()
-            .populate({ path: 'userId', select: 'name username' })
-            .populate({ path: 'roomId', select: 'roomName rentPerDay' });
+            .populate({
+                path: 'userId',
+                match: { isDeleted: false }, // Filtra solo usuarios activos
+                select: 'name username' // Selecciona los campos que quieres retornar
+            })
+            .populate({
+                path: 'roomId',
+                select: 'roomName rentPerDay' // Selecciona los campos de las habitaciones
+            });
 
-        res.status(200).json({ data: bookings, message: "He conseguido todos los bookings" });
+        // Filtrar reservas que no tengan un usuario válido (por ejemplo, usuario eliminado)
+        const filteredBookings = bookings.filter(booking => booking.userId !== null);
+
+        res.status(200).json({ data: filteredBookings, message: "He conseguido todos los bookings" });
     } catch (error) {
         res.status(500).json({ message: 'Error al obtener las reservas', error });
     }
 };
+
+// export const getAllBookings = async (req, res) => {
+//     try {
+//         const bookings = await Booking.find()
+//             .populate({ path: 'userId', select: 'name username' })
+//             .populate({ path: 'roomId', select: 'roomName rentPerDay' });
+
+//         res.status(200).json({ data: bookings, message: "He conseguido todos los bookings" });
+//     } catch (error) {
+//         res.status(500).json({ message: 'Error al obtener las reservas', error });
+//     }
+// };
 
 export const getBookingByUserId = async (req, res) => {
     const userId = req.params.userId; 

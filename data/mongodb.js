@@ -70,6 +70,10 @@ const userSchema = new mongoose.Schema({
     isAdmin: {
         type: Boolean,
         default: false
+    },
+    isDeleted: { // Campo para soft delete
+        type: Boolean,
+        default: false
     }
 },
     {
