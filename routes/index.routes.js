@@ -12,27 +12,24 @@ const router = Router();
 // Registro de usuarios
 router.post('/register', createRegister);
 router.post('/login', authLogin);
-router.get('/users', getUsers);
+router.get('/users', authenticateToken, getUsers);
 router.get('/admin', authenticateToken, getAdmin);
 router.put('/users/:id', authenticateToken, updateUser);
 router.delete('/users/:id', authenticateToken, deleteUser);
-
 
 // Rutas habitaciones
 router.get('/rooms', getAllRooms);
 router.post('/rooms/availability', roomsAvailability);
 router.get('/rooms/:id', getRoomById);
 // falta con multer
-router.put('/rooms/:id', updateRoom);
+router.put('/rooms/:id', authenticateToken, updateRoom);
 // router.delete('/rooms/:id', deleteRoom);
 
-// ruta bookings con authenticateToken
+// ruta bookings
 router.post('/booking', createBooking);
-router.get('/bookings',  authenticateToken, getAllBookings);
-// falta authenticateToken
+router.get('/bookings', authenticateToken, getAllBookings);
 router.get('/bookings/:userId', authenticateToken, getBookingByUserId);
-router.put('/bookings/:bookingId', cancelBooking);
-router.put('/bookings/:bookingId', updateBooking);
-
+router.put('/bookings/:bookingId', authenticateToken, cancelBooking);
+router.put('/bookings/:bookingId', authenticateToken, updateBooking);
 
 export default router;
