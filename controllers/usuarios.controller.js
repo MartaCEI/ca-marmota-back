@@ -101,19 +101,6 @@ export const deleteUser = async (req, res, next) => {
     }
 };
 
-
-// export const deleteUser = async (req, res, next) => {
-//     try {
-//         const userId = req.params.id;
-//         const deletedUser = await User.findByIdAndDelete(userId);
-//         if(!deletedUser) return res.status(404).json({message: "Usuario no encontrado"});
-//         res.json({message: "Usuario eliminado correctamente"}); //Si no tiene status envia el mensaje. si le ponemos status(204) no envia mensaje
-//     } catch (error) {
-//         res.status(500).json({message: error.message})
-//     }
-// }
-
-
 export const updateUser = async (req, res, next) => {
     try {
         const userId = req.params.id;
@@ -127,27 +114,3 @@ export const updateUser = async (req, res, next) => {
         res.status(500).json({message: error.message})
     }
 }
-
-
-// export const updateEmail = async (req, res, next) => {
-//     try {
-//         const correoId = req.params.id;
-//
-//         // Utilizamos el new: true para que nos devuelva el documento actualizado
-//         // Utilizamos {isLeido:true} para marcar el correo como leido
-//         const updatedemail = await
-//         Email.findByIdAndUpdate(
-//             correoId,
-//             {isLeido: true},
-//             {new: true}
-//         )
-
-//         if(!updateEmail) return es.status(404).json({message: "Correo no encontrado"});
-//         res.status(200).json(updateEmail);
-//     } catch (error) {
-//         res.status(500).json({message: error.message})
-//     }
-
-// }
-
-
