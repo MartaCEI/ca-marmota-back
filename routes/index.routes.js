@@ -5,10 +5,11 @@ import { createRegister, getUsers, authLogin, getAdmin, updateUser, deleteUser }
 import { getAllRooms, roomsAvailability, getRoomById, updateRoom } from "../controllers/rooms.controller.js";
 import { createBooking, getAllBookings, getBookingByUserId, cancelBooking, updateBooking } from "../controllers/bookings.controller.js";
 import { URL } from '../config/config.js'
+
 const router = Router();
 
 // Rutas de la API
-// Registro de usuarios
+// Rutas de usuarios
 router.post('/register', createRegister);
 router.post('/login', authLogin);
 router.get('/users', authenticateToken, getUsers);
@@ -20,11 +21,9 @@ router.delete('/users/:id', authenticateToken, deleteUser);
 router.get('/rooms', getAllRooms);
 router.post('/rooms/availability', roomsAvailability);
 router.get('/rooms/:id', getRoomById);
-// falta con multer
 router.put('/rooms/:id', authenticateToken, updateRoom);
-// router.delete('/rooms/:id', deleteRoom);
 
-// ruta bookings
+// Rutas bookings
 router.post('/booking', createBooking);
 router.get('/bookings', authenticateToken, getAllBookings);
 router.get('/bookings/:userId', authenticateToken, getBookingByUserId);
@@ -34,10 +33,6 @@ router.put('/bookings/:bookingId', authenticateToken, updateBooking);
 // Upload de archivos con multer
 router.post('/upload', upload.single('image'), (req, res, next) => {
     try {
-
-        console.log("file es ", req.file); // req.file info del archivo
-        console.log("body es:", req.body); // otros campos si existieran
-
         res.status(200).json({
             msg: "Archivo subido correctamente",
             file: req.file,
@@ -45,9 +40,8 @@ router.post('/upload', upload.single('image'), (req, res, next) => {
             peso: `${Math.round(req.file.size / 1024)} Kbytes`,
             url: `${URL}/uploads/${req.file.filename}`
         });
-
     } catch (e) {
-        next(e);
+        res.status(500).json({error: "Error en el servidor"})
     }
 });
 

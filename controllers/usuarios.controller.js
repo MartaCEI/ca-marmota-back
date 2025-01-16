@@ -13,15 +13,6 @@ export const getUsers = async (req, res, next) => {
     }
 };
 
-// export const getUsers = async (req, res, next) => {
-//     try {
-//         const users = await User.find();
-//         res.status(200).json({data: users, message: "Correcto users"})
-//     } catch (error) {
-//         res.status(500).json({error: "Error en el servidor"})
-//     }
-// }
-
 export const authLogin = async (req, res, next) => {
 try {
     const {username, password} = req.body;
@@ -58,9 +49,7 @@ export const createRegister =  async (req, res, next) => {
 
         // Obtener el usuario recien creado
         const userCreated = await User.findOne({username : username});
-
         res.status(200).json({data: userCreated, message: "Registro exitoso"})
-
     } catch (error) {
         console.log(error)
         res.status(500).json({error: error.message})
@@ -69,11 +58,7 @@ export const createRegister =  async (req, res, next) => {
 
 export const getAdmin =  async (req, res, next) => {
     try {
-        // Puedo buscar los users y tambien los productos
         const users = await User.find();
-        // const bookings = await Booking.find();
-
-        // res.status(200).json({data: users, booking: bookings, message: "Correcto users"})
         res.status(200).json({data: users, message: "Correcto users"})
     } catch (error) {
         res.status(500).json({error: "Error en el servidor"})
@@ -83,8 +68,7 @@ export const getAdmin =  async (req, res, next) => {
 export const deleteUser = async (req, res, next) => {
     try {
         const userId = req.params.id;
-
-        // Marcar el usuario como eliminado
+        // Marcar el usuario como eliminado (soft delete)
         const updatedUser = await User.findByIdAndUpdate(
             userId,
             { isDeleted: true },

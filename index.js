@@ -30,17 +30,14 @@ app.use("/api/v1", indexRoutes);
 // Middleware para manejo de errores
 app.use((err, req, res, next) => {
     console.error(err.stack);
-
     const responseAPI = {
         status: "error",
         msg: "Error en la API",
         error: err.message,
         code: 500
     }
-
     res.status(500).send(responseAPI)
 })
-
 
 app.get("/", (req, res)=> {
     res.setHeader("Content-Type", "text/html")
