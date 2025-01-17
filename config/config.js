@@ -9,7 +9,7 @@ dotenv.config();
 import path from 'path';
 export const __dirname = path.resolve();
 
-export const PORT = process.env.PORT || 5000;
+export const PORT = process.env.PORT || 3000;
 export const DOMAIN = process.env.DOMAIN || 'http://localhost';
 
 export const URL = `${DOMAIN}:${PORT}`;
