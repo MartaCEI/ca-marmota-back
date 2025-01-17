@@ -4,7 +4,8 @@ import indexRoutes from './routes/index.routes.js'
 import { PORT, DOMAIN } from './config/config.js'
 import { connectDB } from './data/mongodb.js';
 import path from "path";
-import { fileURLToPath } from 'url';
+export const __dirname = path.resolve();
+// import { fileURLToPath } from 'url';
 
 // Crear la aplicación de express
 const app = express();
@@ -13,8 +14,8 @@ const app = express();
 // Conectar a la base de datos
 connectDB();
 
-// Configuración para servir archivos estáticos
-const __dirname = path.dirname(fileURLToPath(import.meta.url));  // Para ES6 Modules
+// // Configuración para servir archivos estáticos
+// const __dirname = path.dirname(fileURLToPath(import.meta.url));  // Para ES6 Modules
 
 // Comunicación entre servidores
 // Para que express entienda json
