@@ -12,6 +12,7 @@ export const __dirname = path.resolve();
 
 export const PORT = process.env.PORT || 3000;
 export const DOMAIN = process.env.DOMAIN || 'http://localhost:';
+export const URL = `${DOMAIN}${PORT}`;
 
 export const DB = process.env.MONGO_URI;
 

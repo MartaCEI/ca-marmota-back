@@ -1,11 +1,11 @@
 import express from 'express';
 import cors from 'cors';
 import indexRoutes from './routes/index.routes.js'
-import { PORT, DOMAIN } from './config/config.js'
+import { PORT, DOMAIN, URL } from './config/config.js'
 import { connectDB } from './data/mongodb.js';
 import path from "path";
-export const __dirname = path.resolve();
-// import { fileURLToPath } from 'url';
+import { __dirname } from './config/config.js';
+
 
 // Crear la aplicación de express
 const app = express();
@@ -14,8 +14,7 @@ const app = express();
 // Conectar a la base de datos
 connectDB();
 
-// // Configuración para servir archivos estáticos
-// const __dirname = path.dirname(fileURLToPath(import.meta.url));  // Para ES6 Modules
+app.use(express.static(path.join(__dirname, "public"))) 
 
 // Comunicación entre servidores
 // Para que express entienda json
@@ -24,8 +23,6 @@ app.use(cors());
 app.use(express.json());
 // true para parsear arrays y objetos complejos
 app.use(express.urlencoded({ extended: true }));
-// Asegúrate de que 'public' esté disponible para los archivos estáticos
-app.use('/public', express.static(path.join(__dirname, 'public')));
 // Si usas Multer para manejar cargas de archivos, asegúrate de que 'uploads' esté accesible también
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 // Rutas de la API que serán el localhost:3000 + /api/v1 + /ruta
