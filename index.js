@@ -58,5 +58,5 @@ app.get("/", (req, res) => {
 });
 
 app.listen(PORT, () => {
-    console.log(`Server running on ${PORT}${DOMAIN}`);
+    console.log(`Server running on ${DOMAIN}${PORT}`);
 });

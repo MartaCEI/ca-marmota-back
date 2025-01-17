@@ -4,7 +4,7 @@ import {authenticateToken} from '../middlewares/auth.js'
 import { createRegister, getUsers, authLogin, updateUser, deleteUser } from "../controllers/usuarios.controller.js";
 import { getAllRooms, roomsAvailability, getRoomById, updateRoom } from "../controllers/rooms.controller.js";
 import { createBooking, getAllBookings, getBookingByUserId, cancelBooking, updateBooking } from "../controllers/bookings.controller.js";
-import { URL } from '../config/config.js'
+import { PORT, DOMAIN } from '../config/config.js'
 
 const router = Router();
 
@@ -37,7 +37,7 @@ router.post('/upload', upload.single('image'), (req, res, next) => {
             file: req.file,
             body: req.body,
             peso: `${Math.round(req.file.size / 1024)} Kbytes`,
-            url: `${URL}/uploads/${req.file.filename}`
+            url: `${DOMAIN}${PORT}/uploads/${req.file.filename}`
         });
     } catch (e) {
         res.status(500).json({error: "Error en el servidor"})
