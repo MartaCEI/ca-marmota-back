@@ -7,12 +7,11 @@ dotenv.config();
 //Dice exactamente en que carpeta se encuentra el archivo en el index.js middlewares
 // Para que vercel acceda a nuestra carpeta public
 import path from 'path';
+// Configura __dirname correctamente para manejar rutas de archivos
 export const __dirname = path.resolve();
 
 export const PORT = process.env.PORT || 3000;
-export const DOMAIN = process.env.DOMAIN || 'http://localhost';
-
-export const URL = `${DOMAIN}:${PORT}`;
+export const DOMAIN = process.env.DOMAIN || 'http://localhost:';
 
 export const DB = process.env.MONGO_URI;
 
