@@ -19,9 +19,16 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 // Comunicación entre servidores
 // Para que express entienda json
 app.use(cors());
+
+app.use(cors({
+    origin: 'https://ca-marmota-front.vercel.app', // Asegúrate de usar el dominio correcto del frontend
+    methods: ['GET', 'POST'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+}));
+
 app.use(express.json());
 // true para parsear arrays y objetos complejos
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 // Middleware para subir archivos
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 // Rutas de la API que serán el localhost:3000 + /api/v1 + /ruta
@@ -39,7 +46,7 @@ app.use((err, req, res, next) => {
     res.status(500).send(responseAPI)
 })
 
-app.get("/", (req, res)=> {
+app.get("/", (req, res) => {
     res.setHeader("Content-Type", "text/html")
 
     const hola = `<h1>Bienvenidos a nuestra REST-API</h1>
