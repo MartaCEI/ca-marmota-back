@@ -68,6 +68,7 @@ export const updateRoom = async (req, res, next) => {
         const roomId = req.params.id;
         // Verificar si la habitación existe
         const room = await Room.findById(roomId);
+        // Si la habitación no existe, responder con un error
         if (!room) {
             return res.status(404).json({ message: "Habitación no encontrada" });
         }
@@ -75,11 +76,15 @@ export const updateRoom = async (req, res, next) => {
         const updatedRoom = await Room.findByIdAndUpdate(
             roomId,
             req.body, // Aquí usamos req.body para actualizar los campos modificados
-            { new: true } // Esto asegura que la respuesta sea la habitación actualizada
+            { new: true } // Devuelve el documento actualizado
         );
+        // Responder con la habitación actualizada
         res.status(200).json(updatedRoom);
     } catch (error) {
+        // Si hay un error, responder con un mensaje de error
         console.error(error);
         res.status(500).json({ message: "Error al actualizar la habitación", error: error.message });
     }
 };
+
+

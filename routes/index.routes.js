@@ -1,7 +1,7 @@
 import {Router} from "express"
 import { upload } from '../middlewares/multer.js';
 import {authenticateToken} from '../middlewares/auth.js'
-import { createRegister, getUsers, authLogin, getAdmin, updateUser, deleteUser } from "../controllers/usuarios.controller.js";
+import { createRegister, getUsers, authLogin, updateUser, deleteUser } from "../controllers/usuarios.controller.js";
 import { getAllRooms, roomsAvailability, getRoomById, updateRoom } from "../controllers/rooms.controller.js";
 import { createBooking, getAllBookings, getBookingByUserId, cancelBooking, updateBooking } from "../controllers/bookings.controller.js";
 import { URL } from '../config/config.js'
@@ -13,7 +13,6 @@ const router = Router();
 router.post('/register', createRegister);
 router.post('/login', authLogin);
 router.get('/users', authenticateToken, getUsers);
-router.get('/admin', authenticateToken, getAdmin);
 router.put('/users/:id', authenticateToken, updateUser);
 router.delete('/users/:id', authenticateToken, deleteUser);
 
