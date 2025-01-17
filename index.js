@@ -20,12 +20,6 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));  // Para ES6 Mod
 // Para que express entienda json
 app.use(cors());
 
-app.use(cors({
-    origin: 'https://ca-marmota-front.vercel.app', // Asegúrate de usar el dominio correcto del frontend
-    methods: ['GET', 'POST'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
-}));
-
 app.use(express.json());
 // true para parsear arrays y objetos complejos
 app.use(express.urlencoded({ extended: true }));
